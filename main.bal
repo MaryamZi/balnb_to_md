@@ -1,5 +1,8 @@
 import ballerina/io;
 
+const BAL_NOTEBOOK_EXT = ".balnotebook";
+const MD_EXT = ".md";
+
 const MARKDOWN = "markdown";
 
 type NotebookEntry record {|
@@ -19,7 +22,7 @@ type NotebookEntry record {|
 # + targetPath - The path of the target MD file. If not specified, defaults to the name of the input file.
 # + return - returns an error if the conversion fails
 public function convertToMd(string nbPath, string? targetPath = ()) returns error? {
-    if !nbPath.endsWith(".balnotebook") {
+    if !nbPath.endsWith(BAL_NOTEBOOK_EXT) {
         return error("Expected a Ballerina Notebook with the '.balnotebook' extension");
     }
 
@@ -62,4 +65,4 @@ function getBackTickString(string content) returns string {
 }
 
 function getOutputFilePath(string inputFilePath) returns string =>
-    inputFilePath.substring(0, <int> inputFilePath.lastIndexOf(".balnotebook")) + ".md";
+    inputFilePath.substring(0, <int> inputFilePath.lastIndexOf(BAL_NOTEBOOK_EXT)) + MD_EXT;
